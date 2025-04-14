@@ -4,7 +4,7 @@ namespace EShop.Domain;
 
 public class CardNumberInvalidException : Exception
 {
-    public CardNumberInvalidException() { }
-    public CardNumberInvalidException() : base("Card number is invalid!") { }
-    public CardNumberTooLongException(Exception innerException) : base("Card number is too long", innerException) { }
+    private const string MessageContent = "Card number is invalid!";
+    public CardNumberInvalidException() : base(MessageContent) { }
+    public CardNumberInvalidException(Exception innerException) : base(MessageContent, innerException) { }
 }

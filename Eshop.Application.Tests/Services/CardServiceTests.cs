@@ -3,24 +3,25 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Xunit;
 using EShop.Application.Services;
+using EShop.Domain;
 
 namespace Eshop.Application.Tests.Services;
 
 public class CardServiceTests
 {
     [Fact]
-    public void ValidateCard_CardNumberHas12Digits_ExpectedFalse()
+    public void ValidateCard_CardNumberHas12Digits_ExpectedCardNumberTooShortException()
     {
         string input = "230914554590";
         var service = new CardService();
-        Assert.False(service.ValidateCard(input));
+        Assert.Throws<CardNumberTooShortException>(() => service.ValidateCard(input));
     }
     [Fact]
-    public void ValidateCard_CardNumberHas20Digits_ExpectedFalse()
+    public void ValidateCard_CardNumberHas20Digits_ExpectedCardNumberTooLongException()
     {
         string input = "26081981298536520573";
         var service = new CardService();
-        Assert.False(service.ValidateCard(input));
+        Assert.Throws<CardNumberTooLongException>(() => service.ValidateCard(input));
     }
     [Fact]
     public void ValidateCard_CardNumberHas13Digits_ExpectedTrue()
@@ -65,11 +66,11 @@ public class CardServiceTests
         Assert.True(service.ValidateCard(input));
     }
     [Fact]
-    public void ValidateCard_CardNumberContainsInvalidCharacters_ExpectedFalse()
+    public void ValidateCard_CardNumberContainsInvalidCharacters_ExpectedCardNumberInvalidException()
     {
         string input = "v4344Oh4397938910p";
         var service = new CardService();
-        Assert.False(service.ValidateCard(input));
+        Assert.Throws<CardNumberInvalidException>(() => service.ValidateCard(input));
     }
     [Theory]
     [InlineData("3497 7965 8312 797")]
@@ -81,9 +82,25 @@ public class CardServiceTests
     [InlineData("5530016454538418")]
     [InlineData("5551561443896215")]
     [InlineData("5131208517986691")]
-    public void ValidateCard_ValidCardNumber(string input)
+    public void ValidateCard_ValidCardNumber_ExpectedTrue(string input)
     {
         var service = new CardService();
         Assert.True(service.ValidateCard(input));
+    }
+
+    [Theory]
+    [InlineData("3497 7965 8312 797", "American Express")]
+    [InlineData("345-470-784-783-010", "American Express")]
+    [InlineData("378523393817437", "American Express")]
+    [InlineData("4024-0071-6540-1778", "Visa")]
+    [InlineData("4532 2080 2150 4434", "Visa")]
+    [InlineData("4532289052809181", "Visa")]
+    [InlineData("5530016454538418", "MasterCard")]
+    [InlineData("5551561443896215", "MasterCard")]
+    [InlineData("5131208517986691", "MasterCard")]
+    public void GetCardType_ValidCardNumberAndProviderMatch_ExpectedReturnCorrectProvider(string input, string expected)
+    {
+        var service = new CardService();
+        Assert.Equal(expected, service.GetCardType(input));
     }
 }
