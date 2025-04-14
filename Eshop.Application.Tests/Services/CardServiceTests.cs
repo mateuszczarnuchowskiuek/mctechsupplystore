@@ -98,7 +98,7 @@ public class CardServiceTests
     [InlineData("5530016454538418", "MasterCard")]
     [InlineData("5551561443896215", "MasterCard")]
     [InlineData("5131208517986691", "MasterCard")]
-    public void GetCardType_ValidCardNumberAndProviderMatch_ExpectedReturnCorrectProvider(string input, string expected)
+    public void GetCardType_ValidCardNumber_ExpectedReturnCorrectProvider(string input, string expected)
     {
         var service = new CardService();
         Assert.Equal(expected, service.GetCardType(input));

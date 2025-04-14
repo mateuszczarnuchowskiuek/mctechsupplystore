@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using EShop.Domain;
 
 namespace EShop.Application.Services;
 
@@ -9,10 +10,13 @@ public class CardService
         cardNumber = cardNumber.Replace(" ", "");
         cardNumber = cardNumber.Replace("-", "");
         if (!cardNumber.All(char.IsDigit))
-            return false;
+            throw new CardNumberInvalidException();
 
-        if (cardNumber.Length < 13 || cardNumber.Length > 19)
-            return false;
+        if (cardNumber.Length < 13)
+            throw new CardNumberTooShortException();
+        if (cardNumber.Length > 19)
+            throw new CardNumberTooLongException();
+
 
         int sum = 0;
         bool alternate = false;
@@ -59,6 +63,6 @@ public class CardService
         if (Regex.IsMatch(cardNumber, @"^(50|5[6-9]|6\d)\d{10,17}$"))
             return "Maestro";
 
-        return "unknown";   //my quick fix (convert that to exception later)
+        throw new CardProviderUnknown();
     }
 }
