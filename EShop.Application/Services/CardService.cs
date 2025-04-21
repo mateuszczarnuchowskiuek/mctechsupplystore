@@ -3,7 +3,7 @@ using EShop.Domain;
 
 namespace EShop.Application.Services;
 
-public class CardService
+public class CardService : ICardService
 {
     public bool ValidateCard(string cardNumber)
     {
