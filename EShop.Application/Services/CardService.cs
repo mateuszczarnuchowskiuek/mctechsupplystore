@@ -51,7 +51,7 @@ public class CardService : ICardService
         if (Regex.IsMatch(cardNumber, @"^3[47]\d{13}$"))
             return "American Express";
 
-        if (Regex.IsMatch(cardNumber, @"^(6011\d{12}|65\d{14}|64[4-9]\d{13}|622(1[2-9][6-9]|[2-8]\d{2}|9([01]\d|2[0-5]))\d{10})$"))
+        /* if (Regex.IsMatch(cardNumber, @"^(6011\d{12}|65\d{14}|64[4-9]\d{13}|622(1[2-9][6-9]|[2-8]\d{2}|9([01]\d|2[0-5]))\d{10})$"))
             return "Discover";
 
         if (Regex.IsMatch(cardNumber, @"^(352[89]|35[3-8]\d)\d{12}$"))
@@ -61,7 +61,7 @@ public class CardService : ICardService
             return "Diners Club";
 
         if (Regex.IsMatch(cardNumber, @"^(50|5[6-9]|6\d)\d{10,17}$"))
-            return "Maestro";
+            return "Maestro"; */
 
         throw new CardProviderUnknown();
     }

@@ -1,5 +1,7 @@
 using EShop.Application.Services;
+using EShop.Domain;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace testapi.Controllers;
 
@@ -7,18 +9,36 @@ namespace testapi.Controllers;
 [Route("api/[controller]")]
 public class CreditCardController : ControllerBase
 {
-    protected ICardService _cardService;
+    protected ICardService cardServiceProvider;
     public CreditCardController(ICardService cardService)
     {
-        _cardService = cardService;
+        cardServiceProvider = cardService;
     }
 
     [HttpGet]
     public IActionResult Get(string cardNumber)
     {
-        try{
-            _cardService.ValidateCard(cardNumber);
-            return Ok();
+        try
+        {
+            cardServiceProvider.ValidateCard(cardNumber);
+            return Ok(new { cardProvider = cardServiceProvider.GetCardType(cardNumber) });
         }
+        catch (CardNumberTooShortException e)
+        {
+            return BadRequest(new { error = e.Message, code = HttpStatusCode.BadRequest });
+        }
+        catch (CardNumberTooLongException e)
+        {
+            return StatusCode((int)HttpStatusCode.RequestUriTooLong, new { error = e.Message, code = HttpStatusCode.RequestUriTooLong });
+        }
+        catch (CardNumberInvalidException e)
+        {
+            return BadRequest(new { error = e.Message, code = HttpStatusCode.BadRequest });
+        }
+        catch (CardProviderUnknown e)
+        {
+            return StatusCode((int)HttpStatusCode.NotAcceptable, new { error = e.Message, code = HttpStatusCode.NotAcceptable });
+        }
+
     }
 }
