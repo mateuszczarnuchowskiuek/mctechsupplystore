@@ -1,4 +1,4 @@
-namespace testapi.Models;
+namespace EShop.Domain.Models;
 
 public class BaseModel
 {
