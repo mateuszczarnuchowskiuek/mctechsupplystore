@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using EShop.Application.Services;
+using EShop.Domain.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,11 +10,18 @@ namespace testapi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+
+        private IProductService _productService;
+        public ProductController(IProductService productService)
+        {
+            _productService = productService;
+        }
+
         // GET: api/<ProductController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(await _productService.GetAllAsync());
         }
 
         // GET api/<ProductController>/5
