@@ -16,6 +16,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseInMemoryDatabas
 // Add services to the container.
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IEShopSeeder, EShopSeeder>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
