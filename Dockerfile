@@ -12,19 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["testapi/testapi.csproj", "testapi/"]
-RUN dotnet restore "./testapi/testapi.csproj"
+COPY ["EShopService/EShopService.csproj", "EShopService/"]
+RUN dotnet restore "./EShopService/EShopService.csproj"
 COPY . .
-WORKDIR "/src/testapi"
-RUN dotnet build "./testapi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/EShopService"
+RUN dotnet build "./EShopService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Ten etap służy do publikowania projektu usługi do skopiowania do etapu końcowego
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./testapi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./EShopService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Ten etap jest używany w środowisku produkcyjnym lub w przypadku uruchamiania z programu VS w trybie regularnym (domyślnie, gdy nie jest używana konfiguracja debugowania)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "testapi.dll"]
+ENTRYPOINT ["dotnet", "EShopService.dll"]
