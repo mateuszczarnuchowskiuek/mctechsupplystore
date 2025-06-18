@@ -2,6 +2,8 @@
 {
     public interface IEShopSeeder
     {
-        Task Seed();
+        Task SeedProducts();
+
+        Task SeedClients();
     }
 }
