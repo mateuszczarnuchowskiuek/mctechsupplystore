@@ -1,6 +1,7 @@
 using EShop.Application.Services;
 using EShop.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using EShop.Domain.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase("TestDb"), ServiceLifetime.Transient);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer(); // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IEShopSeeder, EShopSeeder>();
 
 var app = builder.Build();
 
@@ -27,5 +30,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//Seeding data 
+var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<IEShopSeeder>();
+await seeder.SeedProducts();
+await seeder.SeedClients();
 
 app.Run();

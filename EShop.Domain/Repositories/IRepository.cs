@@ -6,4 +6,6 @@ public interface IRepository
 {
     //Products
     public Task<Product> GetProductAsync(int id);
+
+    public Task<Clients> GetClientAsync(int id);
 }
