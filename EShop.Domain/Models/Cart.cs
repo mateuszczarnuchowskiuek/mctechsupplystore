@@ -14,7 +14,9 @@ public class Cart
 
     public int id { get; set; }
 
-    public Product product { get; set; } = default!;
+    public Clients client { get; set; }
+
+    public List<Product> products { get; set; }
 
 
 }

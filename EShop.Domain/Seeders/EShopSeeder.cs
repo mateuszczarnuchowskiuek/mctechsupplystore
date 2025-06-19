@@ -1,5 +1,6 @@
 ﻿using EShop.Domain.Repositories;
 using EShop.Domain.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EShop.Domain.Seeders
 {
@@ -58,9 +59,9 @@ namespace EShop.Domain.Seeders
             {
                 var product = new List<Cart>
                 {
-                    new Cart { id=7, product = new Product{id=10, name="figurka"} },
-                    new Cart{ id=8, product = new Product{id=11, name="gra planszowa"} },
-                    new Cart { id=9, product = new Product{id=12, name="pluszak"} }
+                    new Cart { id=7, products = new List<Product>(), client = new Clients{Id = 19, Name = "May"} },
+                    new Cart{ id=8 },
+                    new Cart { id=9 }
                 };
 
                 context.Carts.AddRange(product);
