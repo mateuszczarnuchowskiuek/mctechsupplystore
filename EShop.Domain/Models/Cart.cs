@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,20 +7,14 @@ using System.ComponentModel.DataAnnotations;    //potrzebne do tych dekoratorów
 using System.ComponentModel.DataAnnotations.Schema; //potrzebne do tych dekoratorów
 namespace EShop.Domain.Models;
 
-public class Clients : BaseModel
+public class Cart
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+    public int id { get; set; }
 
-    public string Surname { get; set; } = string.Empty;
-
-    public string Email { get; set; } = string.Empty ;
-
-    public string BillingAddress {  get; set; } = string.Empty;
+    public Product product { get; set; } = default!;
 
 
 }
-

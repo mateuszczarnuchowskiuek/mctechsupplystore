@@ -1,66 +1,67 @@
-using EShop.Application.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using EShop.Application.Services;
 using EShop.Domain.Models;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace testapi.Controllers
+namespace EShopService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class CategoryController : ControllerBase
     {
         //Setup (dependency injection)
-        private IProductService _productService;
-        public ProductController(IProductService productService)
+        private ICategoryService _categoryService;
+        public CategoryController(ICategoryService categoryService)
         {
-            _productService = productService;
+            _categoryService = categoryService;
         }
 
-        // GET: api/<ProductController>
+
+        // GET: api/<CategoryController>
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var result = await _productService.GetAllAsync();
+            var result = await _categoryService.GetAllAsync();
             if (result.Count == 0)
                 return NotFound();
 
             return Ok(result);
         }
 
-        // GET api/<ProductController>/5
+        // GET api/<CategoryController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
-            var result = await _productService.GetAsync(id);
+            var result = await _categoryService.GetAsync(id);
             if (result == null)
                 return NotFound();
 
             return Ok(result);
         }
 
-        // POST api/<ProductController>
+        // POST api/<CategoryController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Product product)
+        public async Task<ActionResult> Post([FromBody] Category category)
         {
-            Exception e = await _productService.AddAsync(product);
+            Exception e = await _categoryService.AddAsync(category);
             if (e == null)
                 return Ok();
 
             return BadRequest(e);
         }
-
-        // PUT api/<ProductController>/5
+        /*
+        // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<ProductController>/5
+        // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
         }
+        */
     }
 }

@@ -24,5 +24,12 @@ public class ClientService : IClientService
         return client;
     }
 
+    public async Task<List<Clients>> GetAllAsync()
+    {
+        List<Clients> clients = await _repository.GetAllClientsAsync();
+
+        return clients;
+    }
+
 
 }

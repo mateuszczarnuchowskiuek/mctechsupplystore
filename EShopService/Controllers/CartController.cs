@@ -1,66 +1,67 @@
-using EShop.Application.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using EShop.Application.Services;
 using EShop.Domain.Models;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace testapi.Controllers
+namespace EShopService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class CartController : ControllerBase
     {
-        //Setup (dependency injection)
-        private IProductService _productService;
-        public ProductController(IProductService productService)
+        private ICartService _cartService;
+        public CartController(ICartService cartService)
         {
-            _productService = productService;
+            _cartService = cartService;
         }
 
-        // GET: api/<ProductController>
+
+        // GET: api/<CartController>
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var result = await _productService.GetAllAsync();
+            var result = await _cartService.GetAllAsync();
             if (result.Count == 0)
                 return NotFound();
 
             return Ok(result);
         }
 
-        // GET api/<ProductController>/5
+        // GET api/<CartController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
-            var result = await _productService.GetAsync(id);
+            var result = await _cartService.GetAsync(id);
             if (result == null)
                 return NotFound();
 
             return Ok(result);
         }
 
-        // POST api/<ProductController>
+        // POST api/<CartController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Product product)
+        public async Task<ActionResult> Post([FromBody] Cart cart)
         {
-            Exception e = await _productService.AddAsync(product);
+            Exception e = await _cartService.AddAsync(cart);
             if (e == null)
                 return Ok();
 
             return BadRequest(e);
         }
-
-        // PUT api/<ProductController>/5
+        /*
+        // PUT api/<CartController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<ProductController>/5
+        // DELETE api/<CartController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
         }
+        */
     }
+
 }

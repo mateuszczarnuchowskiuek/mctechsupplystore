@@ -22,16 +22,24 @@ namespace EShopService.Controllers
 
         // GET: api/<ClientController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _clientService.GetAllAsync();
+            if (result.Count == 0)
+                return NotFound();
+
+            return Ok(result);
         }
 
         // GET api/<ClientController>/5
         [HttpGet("{id}")]
-        public async Task<Clients> Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            return await _clientService.GetAsync(id);
+            var result = await _clientService.GetAsync(id);
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
         }
 
         /*

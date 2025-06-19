@@ -7,9 +7,12 @@ using EShop.Domain.Models;
 
 namespace EShop.Application.Services;
 
-public interface IClientService
+public interface ICategoryService
 {
-    public Task<Clients> GetAsync(int id);
 
-    public Task<List<Clients>> GetAllAsync();
+    public Task<List<Category>> GetAllAsync();
+    public Task<Category> GetAsync(int id);
+
+    public Task<Exception> AddAsync(Category category);
+
 }

@@ -5,5 +5,9 @@
         Task SeedProducts();
 
         Task SeedClients();
+
+        Task SeedCategory();
+
+        Task SeedCart();
     }
 }
