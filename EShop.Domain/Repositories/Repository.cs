@@ -20,11 +20,11 @@ public class Repository : IRepository
 
 
     //Get all products from the database
+
+
     public async Task<List<Product>> GetAllProductsAsync()
     {
-        List<Product> products = await _context.Products.ToListAsync();
-
-        return products;
+        return await _context.Products.ToListAsync();
     }
     //Get a single product from the database
     public async Task<Product> GetProductAsync(int id)
