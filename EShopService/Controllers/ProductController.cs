@@ -53,14 +53,24 @@ namespace testapi.Controllers
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, [FromBody] Product product)
         {
+            Exception e = await _productService.UpdateAsync(product);
+            if (e == null)
+                return Ok();
+
+            return BadRequest(e);
         }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            Exception e = await _productService.DeleteAsync(id);
+            if (e == null)
+                return Ok();
+
+            return BadRequest(e);
         }
     }
 }
