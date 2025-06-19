@@ -26,15 +26,46 @@ namespace EShop.Domain.Seeders
             {
                 var clients = new List<Clients>
                 {
-                    new Clients { Name = "Mark",  },
-                    new Clients { Name = "Marry"},
-                    new Clients { Name = "Leon" }
+                    new Clients { Id=1, Name = "Mark", Surname = "aaa"},
+                    new Clients { Id=2, Name = "Marry", Surname = "bbb"},
+                    new Clients { Id=3, Name = "Leon", Surname = "ccc" }
                 };
 
                 context.Clients.AddRange(clients);
                 context.SaveChanges();
             }
 
+        }
+        public async Task SeedCategory()
+        {
+            if (!context.Categories.Any())
+            {
+                var category = new List<Category>
+                {
+                    new Category { id=7, name = "klocki"},
+                    new Category { id=8, name = "rtv"},
+                    new Category { id=9, name = "agd"}
+                };
+
+                context.Categories.AddRange(category);
+                context.SaveChanges();
+            }
+        }
+
+        public async Task SeedCart()
+        {
+            if (!context.Carts.Any())
+            {
+                var product = new List<Cart>
+                {
+                    new Cart { id=7, product = new Product{id=10, name="figurka"} },
+                    new Cart{ id=8, product = new Product{id=11, name="gra planszowa"} },
+                    new Cart { id=9, product = new Product{id=12, name="pluszak"} }
+                };
+
+                context.Carts.AddRange(product);
+                context.SaveChanges();
+            }
         }
     }
 }

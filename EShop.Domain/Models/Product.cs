@@ -14,6 +14,6 @@ namespace EShop.Domain.Models
         public decimal price { get; set; }
         public int stock { get; set; } = 0;
         public string sku { get; set; } = string.Empty;
-        public Category category { get; set; } = default!;
+        public Category category { get; set; }
     }
 }
