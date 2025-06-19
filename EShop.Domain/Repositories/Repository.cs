@@ -68,7 +68,7 @@ public class Repository : IRepository
         try
         {
             Product product = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
-            product.deleted = true;
+            product.Deleted = true;
             _context.Products.Update(product);  //as far as I remember we're supposed to do this insead of actually deleting the product (correct me if i'm wrong)
             await _context.SaveChangesAsync();
         }
