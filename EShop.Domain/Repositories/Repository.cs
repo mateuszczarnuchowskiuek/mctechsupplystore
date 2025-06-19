@@ -14,12 +14,33 @@ public class Repository : IRepository
         _context = dataContext;
     }
 
-    //Get product data from database
+    //Get all products from the database
+    public async Task<List<Product>> GetAllProductsAsync()
+    {
+        List<Product> products = await _context.Products.ToListAsync();
+
+        return products;
+    }
+    //Get a single product from the database
     public async Task<Product> GetProductAsync(int id)
     {
         Product product = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
 
         return product;
+    }
+    //Add a single product to the database
+    public async Task<Exception> AddProductAsync(Product product)
+    {
+        try
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+        return null;
     }
 
     //Get client data from database

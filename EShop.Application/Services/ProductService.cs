@@ -15,10 +15,22 @@ public class ProductService : IProductService
     }
 
     //Actual stuff
+    public async Task<List<Product>> GetAllAsync()
+    {
+        List<Product> products = await _repository.GetAllProductsAsync();
+
+        return products;
+    }
     public async Task<Product> GetAsync(int id)
     {
         Product product = await _repository.GetProductAsync(id);
 
         return product;
+    }
+    public async Task<Exception> AddAsync(Product product)
+    {
+        Exception result = await _repository.AddProductAsync(product);
+
+        return result;
     }
 }

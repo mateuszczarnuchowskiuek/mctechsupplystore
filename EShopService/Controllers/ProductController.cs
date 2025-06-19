@@ -20,22 +20,35 @@ namespace testapi.Controllers
 
         // GET: api/<ProductController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _productService.GetAllAsync();
+            if (result.Count == 0)
+                return NotFound();
+
+            return Ok(result);
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public async Task<Product> Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            return await _productService.GetAsync(id);
+            var result = await _productService.GetAsync(id);
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> Post([FromBody] Product product)
         {
+            Exception e = await _productService.AddAsync(product);
+            if (e == null)
+                return Ok();
+
+            return BadRequest(e);
         }
 
         // PUT api/<ProductController>/5
