@@ -33,4 +33,16 @@ public class ProductService : IProductService
 
         return result;
     }
+    public async Task<Exception> UpdateAsync(Product product)
+    {
+        Exception result = await _repository.UpdateProductAsync(product);
+
+        return result;
+    }
+    public async Task<Exception> DeleteAsync(int id)
+    {
+        Exception result = await _repository.DeleteProductAsync(id);
+
+        return result;
+    }
 }

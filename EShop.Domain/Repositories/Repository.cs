@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Runtime.InteropServices;
 using EShop.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 public class Repository : IRepository
 {
@@ -39,6 +40,36 @@ public class Repository : IRepository
         try
         {
             _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+        return null;
+    }
+    //Update product in the database
+    public async Task<Exception> UpdateProductAsync(Product product)
+    {
+        try
+        {
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+        return null;
+    }
+    //Delete product from the database
+    public async Task<Exception> DeleteProductAsync(int id)
+    {
+        try
+        {
+            Product product = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
+            product.deleted = true;
+            _context.Products.Update(product);  //as far as I remember we're supposed to do this insead of actually deleting the product (correct me if i'm wrong)
             await _context.SaveChangesAsync();
         }
         catch (Exception e)
