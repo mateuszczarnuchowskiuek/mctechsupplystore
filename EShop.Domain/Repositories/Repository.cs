@@ -38,6 +38,9 @@ public class Repository : IRepository
     //Add a single product to the database
     public async Task<Exception> AddProductAsync(Product product)
     {
+        var t = await _context.Products.Where(x => x.Id == product.Id).FirstAsync();
+        if (t != null)
+            return new ProductAlreadyExistsException();
         try
         {
             product.CreatedAt = DateTime.UtcNow;
