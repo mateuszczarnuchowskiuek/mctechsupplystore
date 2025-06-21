@@ -12,9 +12,9 @@ namespace EShop.Domain.Seeders
             {
                 var products = new List<Product>
                 {
-                    new Product { id=1, name = "Cobi", ean = "1234", price=245.04m, stock=5, sku="ABC123XYZ", category=new Category{id=1, name="klocki"}},
-                    new Product { id=2, name = "Duplo", ean = "431", price=21.36m,stock=53, sku="PROD-45678", category=new Category{id=2, name="agd"}},
-                    new Product { id=3, name = "Lego", ean = "12212", price=399.99m,stock=24, sku="ELEC-98765-TV", category=new Category{id=5, name="agd"}}
+                    new Product { Id=1, Name = "Cobi", Ean = "1234", Price=245.04m, Stock=5, Sku="ABC123XYZ", Category=new Category{Id=1, Name="klocki"}},
+                    new Product { Id=2, Name = "Duplo", Ean = "431", Price=21.36m, Stock=53, Sku="PROD-45678", Category=new Category{Id=2, Name="agd"}},
+                    new Product { Id=3, Name = "Lego", Ean = "12212", Price=399.99m, Stock=24, Sku="ELEC-98765-TV", Category=new Category{Id=5, Name="agda"}}
                 };
 
                 context.Products.AddRange(products);
@@ -43,9 +43,9 @@ namespace EShop.Domain.Seeders
             {
                 var category = new List<Category>
                 {
-                    new Category { id=7, name = "klocki"},
-                    new Category { id=8, name = "rtv"},
-                    new Category { id=9, name = "agd"}
+                    new Category { Id=7, Name = "klocki"},
+                    new Category { Id=8, Name = "rtv"},
+                    new Category { Id=9, Name = "agd"}
                 };
 
                 context.Categories.AddRange(category);
