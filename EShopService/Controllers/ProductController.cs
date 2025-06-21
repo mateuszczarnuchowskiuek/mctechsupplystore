@@ -24,7 +24,7 @@ namespace testapi.Controllers
         {
             var result = await _productService.GetAllAsync();
             if (result.Count == 0)
-                return NotFound();
+                return NotFound("No products have been found");
 
             return Ok(result);
         }
@@ -37,7 +37,7 @@ namespace testapi.Controllers
         {
             var result = await _productService.GetAsync(id);
             if (result == null)
-                return NotFound();
+                return NotFound("Product not found");
 
             return Ok(result);
         }
@@ -50,18 +50,18 @@ namespace testapi.Controllers
             if (e == null)
                 return Ok();
 
-            return BadRequest(e);
+            return BadRequest(e.Message);
         }
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Product product)
         {
-            Exception e = await _productService.UpdateAsync(product);
+            Exception e = await _productService.UpdateAsync(id, product);
             if (e == null)
                 return Ok();
 
-            return BadRequest(e);
+            return BadRequest(e.Message);
         }
 
         // DELETE api/<ProductController>/5
@@ -72,7 +72,7 @@ namespace testapi.Controllers
             if (e == null)
                 return Ok();
 
-            return BadRequest(e);
+            return BadRequest(e.Message);
         }
     }
 }

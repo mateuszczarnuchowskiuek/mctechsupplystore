@@ -33,9 +33,9 @@ public class ProductService : IProductService
 
         return result;
     }
-    public async Task<Exception> UpdateAsync(Product product)
+    public async Task<Exception> UpdateAsync(int id, Product product)
     {
-        Exception result = await _repository.UpdateProductAsync(product);
+        Exception result = await _repository.UpdateProductAsync(id, product);
 
         return result;
     }

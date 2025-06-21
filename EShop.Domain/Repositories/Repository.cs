@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Runtime.InteropServices;
 using EShop.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 public class Repository : IRepository
@@ -39,6 +40,8 @@ public class Repository : IRepository
     {
         try
         {
+            product.CreatedAt = DateTime.UtcNow;
+            product.UpdatedAt = DateTime.UtcNow;
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
@@ -49,10 +52,15 @@ public class Repository : IRepository
         return null;
     }
     //Update product in the database
-    public async Task<Exception> UpdateProductAsync(Product product)
+    public async Task<Exception> UpdateProductAsync(int id, Product product)
     {
+
+        var t = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
+        if (t == null)
+            return new ProductNotFoundException();
         try
         {
+            product.UpdatedAt = DateTime.UtcNow;
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
         }
@@ -65,10 +73,15 @@ public class Repository : IRepository
     //Delete product from the database
     public async Task<Exception> DeleteProductAsync(int id)
     {
+        Product product = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
+        if (product == null)
+            return new ProductNotFoundException();
+        if (product.Deleted == true)
+            return null;
         try
         {
-            Product product = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
             product.Deleted = true;
+            product.UpdatedAt = DateTime.UtcNow;
             _context.Products.Update(product);  //as far as I remember we're supposed to do this insead of actually deleting the product (correct me if i'm wrong)
             await _context.SaveChangesAsync();
         }
