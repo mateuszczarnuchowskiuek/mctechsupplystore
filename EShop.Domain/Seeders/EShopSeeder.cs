@@ -27,9 +27,9 @@ namespace EShop.Domain.Seeders
             {
                 var clients = new List<Clients>
                 {
-                    new Clients { Id=1, Name = "Mark", Surname = "aaa"},
-                    new Clients { Id=2, Name = "Marry", Surname = "bbb"},
-                    new Clients { Id=3, Name = "Leon", Surname = "ccc" }
+                    new Clients { Id=7, Name = "Mark", Surname = "aaa"},
+                    new Clients { Id=8, Name = "Marry", Surname = "bbb"},
+                    new Clients { Id=9, Name = "Leon", Surname = "ccc" }
                 };
 
                 context.Clients.AddRange(clients);

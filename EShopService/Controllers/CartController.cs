@@ -55,13 +55,18 @@ namespace EShopService.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
-
+        */
         // DELETE api/<CartController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            Exception e = await _cartService.DeleteAsync(id);
+            if (e == null)
+                return Ok();
+
+            return BadRequest(e.Message);
         }
-        */
+
     }
 
 }

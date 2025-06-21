@@ -50,7 +50,6 @@ namespace EShopService.Controllers
 
             return BadRequest(e);
         }
-        /*
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
@@ -59,9 +58,14 @@ namespace EShopService.Controllers
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            Exception e = await _categoryService.DeleteAsync(id);
+            if (e == null)
+                return Ok();
+
+            return BadRequest(e.Message);
         }
-        */
+
     }
 }

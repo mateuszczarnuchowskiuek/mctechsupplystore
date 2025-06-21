@@ -16,13 +16,16 @@ public interface IRepository
 
     public Task<List<Clients>> GetAllClientsAsync();
 
-    //Categorys
+
+    //Categories
 
     public Task<Category> GetCategoryAsync(int id);
 
     public Task<List<Category>> GetAllCategoriesAsync();
 
     public Task<Exception> AddCategoryAsync(Category category);
+
+    public Task<Exception> DeleteCategoryAsync(int id);
 
     //Cart
 
@@ -31,6 +34,10 @@ public interface IRepository
     public Task<List<Cart>> GetAllCartsAsync();
 
     public Task<Exception> AddCartAsync(Cart product);
+
+    public Task<Exception> DeleteCartAsync(int id);
+
+
 
 
 
