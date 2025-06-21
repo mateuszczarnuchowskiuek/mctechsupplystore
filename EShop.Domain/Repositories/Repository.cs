@@ -114,7 +114,6 @@ public class Repository : IRepository
     }
 
 
-
     //Categories
 
     //Get single category data from database
@@ -150,7 +149,27 @@ public class Repository : IRepository
         return null;
     }
 
-
+    //Delete Category from database
+    public async Task<Exception> DeleteCategoryAsync(int id)
+    {
+        Category category = await _context.Categories.Where(x => x.id == id).FirstOrDefaultAsync();
+        if (category == null)
+            return new ProductNotFoundException();
+        if (category.Deleted == true)
+            return null;
+        try
+        {
+            category.Deleted = true;
+            category.UpdatedAt = DateTime.UtcNow;
+            _context.Categories.Update(category); 
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+        return null;
+    }
 
 
     //Cart
@@ -189,7 +208,27 @@ public class Repository : IRepository
         return null;
     }
 
-
+    //Delete Cart from database
+    public async Task<Exception> DeleteCartAsync(int id)
+    {
+        Cart cart  = await _context.Carts.Where(x => x.id == id).FirstOrDefaultAsync();
+        if (cart == null)
+            return new ProductNotFoundException();
+        if (cart.Deleted == true)
+            return null;
+        try
+        {
+            cart.Deleted = true;
+            cart.UpdatedAt = DateTime.UtcNow;
+            _context.Carts.Update(cart);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+        return null;
+    }
 
 
 }

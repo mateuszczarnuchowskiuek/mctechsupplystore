@@ -38,6 +38,13 @@ public class CategoryService : ICategoryService
         return result;
     }
 
+    public async Task<Exception> DeleteAsync(int id)
+    {
+        Exception result = await _repository.DeleteCategoryAsync(id);
+
+        return result;
+    }
+
 }
 
 

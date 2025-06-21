@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;    //potrzebne do tych dekoratorów
 using System.ComponentModel.DataAnnotations.Schema; //potrzebne do tych dekoratorów
 namespace EShop.Domain.Models;
 
-public class Cart
+public class Cart : BaseModel
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
