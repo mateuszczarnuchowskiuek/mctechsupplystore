@@ -38,7 +38,7 @@ public class Repository : IRepository
     //Add a single product to the database
     public async Task<Exception> AddProductAsync(Product product)
     {
-        var t = await _context.Products.Where(x => x.Id == product.Id).FirstAsync();
+        var t = await _context.Products.Where(x => x.Id == product.Id).FirstOrDefaultAsync();
         if (t != null)
             return new ProductAlreadyExistsException();
         try
@@ -57,10 +57,6 @@ public class Repository : IRepository
     //Update product in the database
     public async Task<Exception> UpdateProductAsync(int id, Product product)
     {
-
-        var t = await _context.Products.Where(x => x.Id == id).FirstOrDefaultAsync();
-        if (t == null)
-            return new ProductNotFoundException();
         try
         {
             product.UpdatedAt = DateTime.UtcNow;
