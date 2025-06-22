@@ -1,11 +1,35 @@
-using Microsoft.EntityFrameworkCore;
 using EShop.Domain.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EShop.Domain.Repositories;
 
+
 public class DataContext : DbContext
 {
-    public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+
+   // public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+   
+    public IConfiguration _config { get; set; }
+
+    public DataContext(IConfiguration config) 
+    {  
+        _config = config; 
+    }
+    /*
+     * MsSql implementation
+     * 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer(_config.GetConnectionString("DatabaseConnection"));
+    }
+    */
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite(_config.GetConnectionString("SQLiteDefault"));
+    }
 
     //Here define DbSets:
     public DbSet<Product> Products { get; set; }
