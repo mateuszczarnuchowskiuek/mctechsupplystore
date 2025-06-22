@@ -61,8 +61,8 @@ namespace EShopService.IntegrationTests.Controllers;
 
                 // Stworzenie obiektu
                 dbContext.Products.AddRange(
-                    new Product { Name = "Product1" },
-                    new Product { Name = "Product2" }
+                    new Product { Name = "Cobi", Ean = "1234", Price = 245.04m, Stock = 5, Sku = "ABC123XYZ", Category = new Category { Name = "klocki" } },
+                    new Product { Name = "Duplo", Ean = "431", Price = 21.36m, Stock = 53, Sku = "PROD-45678", Category = new Category { Name = "agd" } }
                 );
                 // Zapisanie obiektu
                 await dbContext.SaveChangesAsync();
