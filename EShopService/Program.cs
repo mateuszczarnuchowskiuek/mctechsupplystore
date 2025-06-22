@@ -2,6 +2,8 @@ using EShop.Application.Services;
 using EShop.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using EShop.Domain.Seeders;
+using Google.Protobuf.WellKnownTypes;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IEShopSeeder, EShopSeeder>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
+
 
 builder.Services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase("TestDb"), ServiceLifetime.Transient);
 builder.Services.AddControllers();

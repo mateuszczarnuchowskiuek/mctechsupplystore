@@ -12,9 +12,9 @@ namespace EShop.Domain.Seeders
             {
                 var products = new List<Product>
                 {
-                    new Product { id=1, name = "Cobi", ean = "1234", price=245.04m, stock=5, sku="ABC123XYZ", category=new Category{id=1, name="klocki"}},
-                    new Product { id=2, name = "Duplo", ean = "431", price=21.36m,stock=53, sku="PROD-45678", category=new Category{id=2, name="agd"}},
-                    new Product { id=3, name = "Lego", ean = "12212", price=399.99m,stock=24, sku="ELEC-98765-TV", category=new Category{id=5, name="agd"}}
+                    new Product { name = "Cobi", ean = "1234", price=245.04m, stock=5, sku="ABC123XYZ", category=new Category{name="klocki"}},
+                    new Product { name = "Duplo", ean = "431", price=21.36m,stock=53, sku="PROD-45678", category=new Category{name="agd"}},
+                    new Product { name = "Lego", ean = "12212", price=399.99m,stock=24, sku="ELEC-98765-TV", category=new Category{name="agd"}}
                 };
 
                 context.Products.AddRange(products);
@@ -27,9 +27,9 @@ namespace EShop.Domain.Seeders
             {
                 var clients = new List<Clients>
                 {
-                    new Clients { Id=7, Name = "Mark", Surname = "aaa"},
-                    new Clients { Id=8, Name = "Marry", Surname = "bbb"},
-                    new Clients { Id=9, Name = "Leon", Surname = "ccc" }
+                    new Clients { Name = "Mark", Surname = "aaa"},
+                    new Clients { Name = "Marry", Surname = "bbb"},
+                    new Clients { Name = "Leon", Surname = "ccc" }
                 };
 
                 context.Clients.AddRange(clients);
@@ -43,9 +43,9 @@ namespace EShop.Domain.Seeders
             {
                 var category = new List<Category>
                 {
-                    new Category { id=7, name = "klocki"},
-                    new Category { id=8, name = "rtv"},
-                    new Category { id=9, name = "agd"}
+                    new Category { name = "klocki"},
+                    new Category { name = "rtv"},
+                    new Category { name = "agd"}
                 };
 
                 context.Categories.AddRange(category);
@@ -59,9 +59,9 @@ namespace EShop.Domain.Seeders
             {
                 var product = new List<Cart>
                 {
-                    new Cart { id=7, products = new List<Product>(), client = new Clients{Id = 19, Name = "May"} },
-                    new Cart{ id=8 },
-                    new Cart { id=9 }
+                    new Cart { products = new List<Product>(), client = new Clients{Name = "May"} },
+                    new Cart{ products = new List<Product>(), client = new Clients{Name = "Mandy"} },
+                    new Cart { products = new List<Product>(), client = new Clients{Name = "Marta"} }
                 };
 
                 context.Carts.AddRange(product);
