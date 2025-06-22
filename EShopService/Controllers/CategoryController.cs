@@ -52,8 +52,13 @@ namespace EShopService.Controllers
         }
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, [FromBody] Category category)
         {
+            Exception e = await _categoryService.UpdateAsync(id, category);
+            if (e == null)
+                return Ok();
+
+            return BadRequest(e.Message);
         }
 
         // DELETE api/<CategoryController>/5

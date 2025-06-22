@@ -42,5 +42,11 @@ public class CartService : ICartService
 
         return result;
     }
+    public async Task<Exception> UpdateAsync(int id, Cart cart)
+    {
+        Exception result = await _repository.UpdateCartAsync(id, cart);
+
+        return result;
+    }
 
 }

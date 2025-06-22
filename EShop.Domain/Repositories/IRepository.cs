@@ -27,6 +27,8 @@ public interface IRepository
 
     public Task<Exception> DeleteCategoryAsync(int id);
 
+    public Task<Exception> UpdateCategoryAsync(int id, Category category);
+
     //Cart
 
     public Task<Cart> GetCartAsync(int id);
@@ -36,6 +38,8 @@ public interface IRepository
     public Task<Exception> AddCartAsync(Cart product);
 
     public Task<Exception> DeleteCartAsync(int id);
+
+    public Task<Exception> UpdateCartAsync(int id, Cart cart);
 
 
 

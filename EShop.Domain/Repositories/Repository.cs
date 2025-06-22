@@ -171,11 +171,26 @@ public class Repository : IRepository
         return null;
     }
 
+    //Update a Category
+    public async Task<Exception> UpdateCategoryAsync(int id, Category category)
+    {
+        try
+        {
+            category.UpdatedAt = DateTime.UtcNow;
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+        return null;
+    }
 
     //Cart
 
 
-    //Get single category data from database
+    //Get single cart data from database
     public async Task<Cart> GetCartAsync(int id)
     {
         Cart product = await _context.Carts.Where(x => x.id == id).FirstOrDefaultAsync();
@@ -183,7 +198,7 @@ public class Repository : IRepository
         return product;
     }
 
-    //Get all categories from database
+    //Get all cart from database
 
     public async Task<List<Cart>> GetAllCartsAsync()
     {
@@ -192,7 +207,7 @@ public class Repository : IRepository
         return products;
     }
 
-    //Add a category to database
+    //Add a cart to database
 
     public async Task<Exception> AddCartAsync(Cart product)
     {
@@ -229,6 +244,20 @@ public class Repository : IRepository
         }
         return null;
     }
-
+    //Update a Cart
+    public async Task<Exception> UpdateCartAsync(int id, Cart cart)
+    {
+        try
+        {
+            cart.UpdatedAt = DateTime.UtcNow;
+            _context.Carts.Update(cart);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
+        return null;
+    }
 
 }

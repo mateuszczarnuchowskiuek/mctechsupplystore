@@ -44,7 +44,12 @@ public class CategoryService : ICategoryService
 
         return result;
     }
+    public async Task<Exception> UpdateAsync(int id, Category category)
+    {
+        Exception result = await _repository.UpdateCategoryAsync(id, category);
 
+        return result;
+    }
 }
 
 

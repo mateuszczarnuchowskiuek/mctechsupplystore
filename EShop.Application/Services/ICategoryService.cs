@@ -17,4 +17,6 @@ public interface ICategoryService
 
     public Task<Exception> DeleteAsync(int id);
 
+    public Task<Exception> UpdateAsync(int id, Category category);
+
 }

@@ -49,13 +49,18 @@ namespace EShopService.Controllers
 
             return BadRequest(e);
         }
-        /*
+        
         // PUT api/<CartController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, [FromBody] Cart cart)
         {
+            Exception e = await _cartService.UpdateAsync(id, cart);
+            if (e == null)
+                return Ok();
+
+            return BadRequest(e.Message);
         }
-        */
+
         // DELETE api/<CartController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
