@@ -152,7 +152,7 @@ public class Repository : IRepository
     //Delete Category from database
     public async Task<Exception> DeleteCategoryAsync(int id)
     {
-        Category category = await _context.Categories.Where(x => x.id == id).FirstOrDefaultAsync();
+        Category category = await _context.Categories.Where(x => x.Id == id).FirstOrDefaultAsync();
         if (category == null)
             return new ProductNotFoundException();
         if (category.Deleted == true)
@@ -161,7 +161,7 @@ public class Repository : IRepository
         {
             category.Deleted = true;
             category.UpdatedAt = DateTime.UtcNow;
-            _context.Categories.Update(category); 
+            _context.Categories.Update(category);
             await _context.SaveChangesAsync();
         }
         catch (Exception e)
@@ -211,7 +211,7 @@ public class Repository : IRepository
     //Delete Cart from database
     public async Task<Exception> DeleteCartAsync(int id)
     {
-        Cart cart  = await _context.Carts.Where(x => x.id == id).FirstOrDefaultAsync();
+        Cart cart = await _context.Carts.Where(x => x.id == id).FirstOrDefaultAsync();
         if (cart == null)
             return new ProductNotFoundException();
         if (cart.Deleted == true)
