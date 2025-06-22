@@ -8,8 +8,6 @@ namespace EShop.Domain.Repositories;
 
 public class DataContext : DbContext
 {
-
-   // public DataContext(DbContextOptions<DataContext> options) : base(options) { }
    
     public IConfiguration _config { get; set; }
 
@@ -17,6 +15,10 @@ public class DataContext : DbContext
     {  
         _config = config; 
     }
+   
+   // public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+
+
     /*
      * MsSql implementation
      * 
@@ -30,6 +32,7 @@ public class DataContext : DbContext
     {
         optionsBuilder.UseSqlite(_config.GetConnectionString("SQLiteDefault"));
     }
+    
 
     //Here define DbSets:
     public DbSet<Product> Products { get; set; }
