@@ -19,19 +19,19 @@ public class Repository : IRepository
 
 
     //Products
-
+    #region Products
 
     //Get all products from the database
 
 
     public async Task<List<Product>> GetAllProductsAsync()
     {
-        return await _context.Products.ToListAsync();
+        return await _context.Products.Include(g => g.Category).ToListAsync();
     }
     //Get a single product from the database
     public async Task<Product> GetProductAsync(int id)
     {
-        Product product = await _context.Products.Where(x => x.Id == id).FirstOrDefaultAsync();
+        Product product = await _context.Products.Where(x => x.Id == id).Include(g => g.Category).FirstOrDefaultAsync();
 
         return product;
     }
@@ -90,10 +90,10 @@ public class Repository : IRepository
         }
         return null;
     }
-
+    #endregion Products
 
     //Clients
-
+    #region Clients
 
 
     //Get single client data from database
@@ -112,9 +112,10 @@ public class Repository : IRepository
 
         return clients;
     }
-
+    #endregion Clients
 
     //Categories
+    #region Categories
 
     //Get single category data from database
     public async Task<Category> GetCategoryAsync(int id)
@@ -186,14 +187,15 @@ public class Repository : IRepository
         }
         return null;
     }
+    #endregion Categories
 
-    //Cart
-
+    //Carts
+    #region Carts
 
     //Get single cart data from database
     public async Task<Cart> GetCartAsync(int id)
     {
-        Cart product = await _context.Carts.Where(x => x.id == id).FirstOrDefaultAsync();
+        Cart product = await _context.Carts.Where(x => x.id == id).Include(g => g.client).Include(g => g.products).FirstOrDefaultAsync();
 
         return product;
     }
@@ -202,7 +204,7 @@ public class Repository : IRepository
 
     public async Task<List<Cart>> GetAllCartsAsync()
     {
-        List<Cart> products = await _context.Carts.ToListAsync();
+        List<Cart> products = await _context.Carts.Include(g => g.client).Include(g => g.products).ToListAsync();
 
         return products;
     }
@@ -259,5 +261,5 @@ public class Repository : IRepository
         }
         return null;
     }
-
+    #endregion Carts
 }
