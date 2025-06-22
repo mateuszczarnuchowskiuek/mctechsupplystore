@@ -13,8 +13,8 @@ namespace EShop.Domain.Seeders
                 var products = new List<Product>
                 {
                     new Product { Name = "Cobi", Ean = "1234", Price=245.04m, Stock=5, Sku="ABC123XYZ", Category=new Category{Name="klocki"}},
-                    new Product { Name = "Duplo", Ean = "431", Price=21.36m,Stock=53, Sku="PROD-45678", Category=new Category{Name="agd"}},
-                    new Product { Name = "Lego", Ean = "12212", Price=399.99m,Stock=24, Sku="ELEC-98765-TV", Category=new Category{Name="agd"}}
+                    new Product { Name = "Duplo", Ean = "431", Price=21.36m, Stock=53, Sku="PROD-45678", Category=new Category{Name="agd"}},
+                    new Product { Name = "Lego", Ean = "12212", Price=399.99m, Stock=24, Sku="ELEC-98765-TV", Category=new Category{Name="agd"}}
                 };
 
                 context.Products.AddRange(products);
