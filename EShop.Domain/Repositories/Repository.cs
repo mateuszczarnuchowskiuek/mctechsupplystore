@@ -31,13 +31,16 @@ public class Repository : IRepository
     //Get a single product from the database
     public async Task<Product> GetProductAsync(int id)
     {
-        Product product = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
+        Product product = await _context.Products.Where(x => x.Id == id).FirstOrDefaultAsync();
 
         return product;
     }
     //Add a single product to the database
     public async Task<Exception> AddProductAsync(Product product)
     {
+        var t = await _context.Products.Where(x => x.Id == product.Id).FirstOrDefaultAsync();
+        if (t != null)
+            return new ProductAlreadyExistsException();
         try
         {
             product.CreatedAt = DateTime.UtcNow;
@@ -54,10 +57,6 @@ public class Repository : IRepository
     //Update product in the database
     public async Task<Exception> UpdateProductAsync(int id, Product product)
     {
-
-        var t = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
-        if (t == null)
-            return new ProductNotFoundException();
         try
         {
             product.UpdatedAt = DateTime.UtcNow;
@@ -73,7 +72,7 @@ public class Repository : IRepository
     //Delete product from the database
     public async Task<Exception> DeleteProductAsync(int id)
     {
-        Product product = await _context.Products.Where(x => x.id == id).FirstOrDefaultAsync();
+        Product product = await _context.Products.Where(x => x.Id == id).FirstOrDefaultAsync();
         if (product == null)
             return new ProductNotFoundException();
         if (product.Deleted == true)
@@ -120,7 +119,7 @@ public class Repository : IRepository
     //Get single category data from database
     public async Task<Category> GetCategoryAsync(int id)
     {
-        Category category = await _context.Categories.Where(x => x.id == id).FirstOrDefaultAsync();
+        Category category = await _context.Categories.Where(x => x.Id == id).FirstOrDefaultAsync();
 
         return category;
     }

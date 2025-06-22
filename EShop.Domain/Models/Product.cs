@@ -8,13 +8,13 @@ namespace EShop.Domain.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-        public string name { get; set; } = string.Empty;
-        public string ean { get; set; } = string.Empty;
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Ean { get; set; } = string.Empty;
         [Column(TypeName = "decimal(10,2)")]
-        public decimal price { get; set; }
-        public int stock { get; set; } = 0;
-        public string sku { get; set; } = string.Empty;
-        public Category category { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; } = 0;
+        public string Sku { get; set; } = string.Empty;
+        public Category Category { get; set; }
     }
 }
